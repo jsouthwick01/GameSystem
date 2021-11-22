@@ -20,7 +20,7 @@ int main()
 		{
 			case 1:
 			{
-				runner();
+				runner(); break;
 			}
 			case 2:
 			{
@@ -31,6 +31,7 @@ int main()
 				return 0;
 			}
 		}
+		cin.ignore();
 		cout<<"\nWould you like to play another game? Enter 1 for yes and 0 for no.";
 		scanf("%d", &bored);
 	}

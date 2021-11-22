@@ -139,7 +139,12 @@ void game(Player p1, Player p2, DeckOfCards deck)
 				scanf("%d", &choice);
 				if(choice==1)
 				{
-					p1.handValue+=deck.dealCard().cardValue;
+					int randy=deck.dealCard().cardValue;
+					if(randy==1 && p1.handValue<=10)
+					{
+						randy=11;
+					}
+					p1.handValue+=randy;
 					cout<<p1.playerName<<","<<p1.handValue<<"\n";
 					doneHitP1=0;
 				}else if(choice==2)
@@ -147,12 +152,17 @@ void game(Player p1, Player p2, DeckOfCards deck)
 					doneHitP1=1;
 				}
 			}
-			if(p1.handValue>21) //checks to see if p1 has gone over 21
+		if(p1.handValue>21) //checks to see if p1 has gone over 21
         {
             cout<<"Player: "<<p1.playerName<<" Busts, you Lose.";
+			cout<<" Player: "<<p2.playerName<<" Wins the game.";
 			winner=0;
             break;
-        }
+        }else if(p1.handValue==21)
+		{
+			cout<<"Player: "<<p1.playerName<<" Wins the game.";
+            break;
+		}
 		
 			if(doneHitP2!=1)
 			{
@@ -160,7 +170,12 @@ void game(Player p1, Player p2, DeckOfCards deck)
 				scanf("%d", &choice);
 				if(choice==1)
 				{
-					p2.handValue+=deck.dealCard().cardValue;
+					int rando=deck.dealCard().cardValue;
+					if(rando==1 && p2.handValue<=10)
+					{
+						rando=11;
+					}
+					p2.handValue+=rando;
 					cout<<p2.playerName<<","<<p2.handValue<<"\n";
 					doneHitP2=0;
 				}else if(choice==2)
@@ -172,15 +187,21 @@ void game(Player p1, Player p2, DeckOfCards deck)
         if(p2.handValue>21)//checks to see if p2 has gone over 21
         {
             cout<<"Player: "<<p2.playerName<<" Busts, you Lose.";
+			cout<<" Player: "<<p1.playerName<<" Wins the game.";
             winner=0;
 			break;
-        }
+        }else if(p2.handValue==21)
+		{
+			cout<<"Player: "<<p2.playerName<<" Wins the game.";
+            break;
+		}
 		
-		if(p1.handValue==21 || p1.handValue>p2.handValue && doneHitP1==1 && doneHitP2==1)//checks to see if p1 has blackjack or beat p2
+		
+		if(p1.handValue>p2.handValue && doneHitP1==1 && doneHitP2==1)//checks to see if p1 has blackjack or beat p2
         {
             cout<<"Player: "<<p1.playerName<<" Wins the game.";
             break;
-        }else if(p2.handValue==21 || p2.handValue>p1.handValue && doneHitP1==1 && doneHitP2==1)//checks to see if p2 has gotten blackjack or beat p1
+        }else if(p2.handValue>p1.handValue && doneHitP1==1 && doneHitP2==1)//checks to see if p2 has gotten blackjack or beat p1
         {
             cout<<"Player: "<<p2.playerName<<" Wins the game.";
             break;
