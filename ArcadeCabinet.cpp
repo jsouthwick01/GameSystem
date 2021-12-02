@@ -6,6 +6,7 @@
 #include <math.h>
 #include <string>
 #include "BJrun.h"
+#include "MineSweeper.h"
 using namespace std;
 
 int main() 
@@ -28,7 +29,9 @@ int main()
 			}
 			case 3:
 			{
-				return 0;
+				MineSweeper game;
+				game.startGame();
+				break;
 			}
 		}
 		cin.ignore();

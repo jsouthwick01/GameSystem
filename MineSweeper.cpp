@@ -1,10 +1,6 @@
-#include <iostream>
-#include <string>
-#define SIZE 14
-class MineSweeper {
-    public:
-       
-        MineSweeper()
+#include "MineSweeper.h"
+      
+        MineSweeper::MineSweeper()
         {
             bombNum=30;
             score = 0;
@@ -17,9 +13,9 @@ class MineSweeper {
                 }
             }
         }
-        void startGame()
+        void MineSweeper::startGame()
         {
-            reset(); //We start with a reset.
+            MineSweeper::reset(); //We start with a reset.
             bool flag = true;
             std::cout << "Type pick to choose a position. Type flag to insert a flag. Type reset to reset the game. Type exit to leave the game.\n";
             while(flag)
@@ -27,11 +23,11 @@ class MineSweeper {
                 if(score >= (SIZE*SIZE) - bombNum) //The score keeps track of how close to finishing the game you are
                 {
                     std::cout << "Congrats! Would you like to play again? y/n\n";
-                    flag =playAgain();
+                    flag = MineSweeper::playAgain();
                 }
                 else{
                 //Print board
-                printBoard();
+                MineSweeper::printBoard();
                 //Ask for x, then y position
                 std::cout << "What would you like to do?\n";
                 std::string hold = "";
@@ -50,7 +46,7 @@ class MineSweeper {
                         if(y > 0 && y <= SIZE)
                         {
                             std::cout << "\n";
-                            flag = pickPosition(x-1,y-1); //This allows us to end the game using the gameover method
+                            flag = MineSweeper::pickPosition(x-1,y-1); //This allows us to end the game using the gameover method
                         }
                         else{
                             std::cout <<"Invalid y.\n";
@@ -74,7 +70,7 @@ class MineSweeper {
                         if(y > 0 && y <= SIZE)
                         {
                             std::cout << "\n";
-                            flagPosition(x,y);
+                            MineSweeper::flagPosition(x,y);
                         }
                         else{
                             std::cout <<"Invalid y.\n";
@@ -87,7 +83,7 @@ class MineSweeper {
                 }
                 else if(hold.compare("reset") == 0)//We reset the board
                 {
-                    reset();
+                    MineSweeper::reset();
                 }
                 else if(hold.compare("exit") == 0)//We exit the game
                 {
@@ -100,19 +96,20 @@ class MineSweeper {
                
             }
         }
-    private:
-        //This is the board the user sees, the board with all our info, and the size of our key.
-        std::string board[SIZE+1][SIZE+1];
-        //Key for board: # represents an unrevealed positon
-        //F represents a flag
-        //9 represents a bomb
-        //numbers 0-8 represent how many bombs are around that position.
-        int key[SIZE][SIZE];
-        bool revealed[SIZE][SIZE];
-        int bombNum;
-        int score;
+       /*
+            //This is the board the user sees, the board with all our info, and the size of our key.
+            std::string board[SIZE+1][SIZE+1];
+            //Key for board: # represents an unrevealed positon
+            //F represents a flag
+            //9 represents a bomb
+            //numbers 0-8 represent how many bombs are around that position.
+            int key[SIZE][SIZE];
+            bool revealed[SIZE][SIZE];
+            int bombNum;
+            int score;
+ */
         //We call this when we want to initialize the Boards. We will also set our key up through this
-        void initializeBoard()
+        void MineSweeper::initializeBoard()
         {
            
             //Next step we will place bombs.
@@ -130,7 +127,7 @@ class MineSweeper {
             }
 
             //Then we set up the numbers in the key.
-            checkSurroundings(-1,0,0);
+            MineSweeper::checkSurroundings(-1,0,0);
             //We set up the revealed array. We don't care about the values since the first check doesn't really reveal anything.
             for(int i = 0; i < SIZE; i++)
             {
@@ -158,10 +155,10 @@ class MineSweeper {
 
         }
         //A recursive function!
-        int checkSurroundings(int recurseCase, int x, int y)
+        int MineSweeper::checkSurroundings(int recurseCase, int x, int y)
         {
             //We have found this position, reveal it.
-            reveal(x,y);
+            MineSweeper::reveal(x,y);
             //We start by adding one to our current position, which ensures we don't infinitely recurse
             key[x][y]++;
             //Now we need to look at all surrounding positions, but keep in mind that we don't go out of bounds on the array.
@@ -176,13 +173,13 @@ class MineSweeper {
                          
                             if(!revealed[i][j])
                             {
-                                reveal(i,j);
+                                MineSweeper::reveal(i,j);
                             }
                             //We have found one of the surrounding positions. If recurse is good, we do so
                             if(key[i][j] == recurseCase)
                             {                             
                                 
-                                checkSurroundings(recurseCase, i, j);
+                                MineSweeper::checkSurroundings(recurseCase, i, j);
                             }
                             else if(key[i][j] == 9)//Bomb found
                             {
@@ -196,26 +193,26 @@ class MineSweeper {
             }
 
         }
-        bool pickPosition(int x, int y)
+        bool MineSweeper::pickPosition(int x, int y)
         {
             //Bomb picked
             if(key[x][y] == 9)
             {
                 //We announce the game is over, then allow for you to continue or end.
                 std::cout << "GAME OVER. Would you like to continue? y/n\n";
-                printKey();
-                return playAgain();
+                MineSweeper::printKey();
+                return MineSweeper::playAgain();
             }//0 picked
             else if(key[x][y] == 0)
             {
-                checkSurroundings(0,x,y);
+                MineSweeper::checkSurroundings(0,x,y);
             }
             else{ //Everything else
-                reveal(x,y);
+                MineSweeper::reveal(x,y);
             }
 
         }
-        void reset()
+        void MineSweeper::reset()
         {
             for(int i = 0; i < SIZE; i++)
             {
@@ -225,10 +222,10 @@ class MineSweeper {
                 }
             }
             //We then set up the board
-            initializeBoard();
+            MineSweeper::initializeBoard();
         }
         //Reveals this position only.
-        void reveal(int x, int y)
+        void MineSweeper::reveal(int x, int y)
         {
             board[x+1][y+1] = std::to_string(key[x][y]);
             score++; //We update the score for each found tile.
@@ -236,7 +233,7 @@ class MineSweeper {
             revealed[x][y] = true;
         }
         
-        bool playAgain()
+        bool MineSweeper::playAgain()
         {
             
             while(true)
@@ -245,7 +242,7 @@ class MineSweeper {
                 std::cin >> hold;
                 if(hold.compare("y") == 0)
                 {
-                    reset();
+                    MineSweeper::reset();
                     return true;
                 }
                 else if (hold.compare("n") == 0)
@@ -256,7 +253,7 @@ class MineSweeper {
             }
         }
 
-        void printBoard()
+        void MineSweeper::printBoard()
         {
             for(int i =0; i < SIZE+1; i++)
             {
@@ -269,7 +266,7 @@ class MineSweeper {
             }
         }
         //I might merge this with printboard later 
-         void printKey()
+         void MineSweeper::printKey()
         {
             for(int i =0; i < SIZE; i++)
             {
@@ -281,17 +278,9 @@ class MineSweeper {
                 std::cout <<"\n";
             }
         }
-        void flagPosition(int x, int y) //This just inserts a flag on the board position.
+        void MineSweeper::flagPosition(int x, int y) //This just inserts a flag on the board position.
         {
             board[x][y] = 'F';
         }
         
-};
 
-int main()
-{
-    std::cout <<"Start";
-    MineSweeper game;
-    game.startGame();
-    return 0;
-}
