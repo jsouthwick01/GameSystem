@@ -205,10 +205,6 @@ void game(Player p1, Player p2, DeckOfCards deck)
         {
             cout<<"Player: "<<p2.playerName<<" Wins the game.";
             break;
-        }else if(p2.handValue=p1.handValue && doneHitP1==1 && doneHitP2==1)//checks to see if p2 has gotten blackjack or beat p1
-        {
-            cout<<"It is a tie...weird. So you both win and lose?";
-            break;
         }
 		
     }while(winner!=0);
