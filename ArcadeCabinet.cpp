@@ -7,6 +7,7 @@
 #include <string>
 #include "BJrun.h"
 #include "MineSweeper.h"
+#include "TTTrun.h"
 using namespace std;
 
 int main() 
@@ -25,7 +26,8 @@ int main()
 			}
 			case 2:
 			{
-				return 0;
+				startGame();
+				break;
 			}
 			case 3:
 			{
