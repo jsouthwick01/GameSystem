@@ -157,12 +157,11 @@ void game(Player p1, Player p2, DeckOfCards deck)
             cout<<"Player: "<<p1.playerName<<" Busts, you Lose.";
 			cout<<" Player: "<<p2.playerName<<" Wins the game.";
 			winner=0;
-            		break;
+            break;
         }else if(p1.handValue==21)
 		{
 			cout<<"Player: "<<p1.playerName<<" Wins the game.";
-			winner=0;
-           		break;
+            break;
 		}
 		
 			if(doneHitP2!=1)
@@ -186,33 +185,25 @@ void game(Player p1, Player p2, DeckOfCards deck)
 			}
         //cout<<"Debug "<<p1.playerName<<","<<p1.handValue<<"\n";
         if(p2.handValue>21)//checks to see if p2 has gone over 21
-	{
-		cout<<"Player: "<<p2.playerName<<" Busts, you Lose.";
-		cout<<" Player: "<<p1.playerName<<" Wins the game.";
-            	winner=0;
-		break;
+        {
+            cout<<"Player: "<<p2.playerName<<" Busts, you Lose.";
+			cout<<" Player: "<<p1.playerName<<" Wins the game.";
+            winner=0;
+			break;
         }else if(p2.handValue==21)
 		{
 			cout<<"Player: "<<p2.playerName<<" Wins the game.";
-			winner=0;
-           		break;
+            break;
 		}
 		
 		
 		if(p1.handValue>p2.handValue && doneHitP1==1 && doneHitP2==1)//checks to see if p1 has blackjack or beat p2
         {
             cout<<"Player: "<<p1.playerName<<" Wins the game.";
-		winner=0;
             break;
         }else if(p2.handValue>p1.handValue && doneHitP1==1 && doneHitP2==1)//checks to see if p2 has gotten blackjack or beat p1
         {
             cout<<"Player: "<<p2.playerName<<" Wins the game.";
-			winner=0;
-            break;
-        }else if(p2.handValue=p1.handValue && doneHitP1==1 && doneHitP2==1)//checks to see if p2 has gotten blackjack or beat p1
-        {
-            cout<<"The game is a tie...did not see that coming.";
-			winner=0;
             break;
         }
 		
